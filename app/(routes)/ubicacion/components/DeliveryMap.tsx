@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { zonas } from "./zonas"; 
+import { zonas } from "./zonas";
+import "leaflet/dist/leaflet.css";
 
 const DeliveryMap = () => {
   const [isClient, setIsClient] = useState(false);
@@ -12,7 +13,6 @@ const DeliveryMap = () => {
     Promise.all([
       import("react-leaflet"),
       import("leaflet"),
-      import("leaflet/dist/leaflet.css"),
     ]).then(([leaflet, L]) => {
       setComponents({
         MapContainer: leaflet.MapContainer,

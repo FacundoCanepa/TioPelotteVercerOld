@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { zonas } from "@/app/(routes)/ubicacion/components/zonas";
 import CheckoutForm from "./CheckoutForm";
+import "leaflet/dist/leaflet.css";
 
 const CheckoutDeliveryMap = ({
   tipoEntrega,
@@ -29,7 +30,6 @@ const CheckoutDeliveryMap = ({
     Promise.all([
       import("react-leaflet"),
       import("leaflet"),
-      import("leaflet/dist/leaflet.css"),
     ]).then(([leaflet, L]) => {
       setComponents({
         MapContainer: leaflet.MapContainer,
