@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-// ✅ PUT — actualizar producto
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -8,6 +7,7 @@ export async function PUT(
   const { id } = await params;
   const body = await req.json();
 
+  // Desestructuramos y limpiamos el body para que coincida con el formato de Strapi
   const {
     id: _,
     documentId,
@@ -33,12 +33,12 @@ export async function PUT(
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
+      ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id},
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+          Authorization: Bearer ${process.env.STRAPI_API_TOKEN},
         },
         body: JSON.stringify({ data: cleanBody }),
       }
@@ -57,33 +57,34 @@ export async function PUT(
 }
 
 
+// ✅ DELETE — eliminar producto
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: { id: string } }
 ) {
-  const { id } = await params;
+  const { id } = context.params;
+
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
+      ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id},
       {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}` },
+        method: "DELETE",
+        headers: {
+          Authorization: Bearer ${process.env.STRAPI_API_TOKEN},
+        },
       }
     );
 
     if (res.status === 204) {
-      // Si Strapi responde sin contenido, enviamos respuesta 204 sin body
       return new Response(null, { status: 204 });
     }
 
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
+
     return NextResponse.json(data, { status: res.status });
   } catch (err) {
-    console.error('❌ DELETE /products/[id] error:', err);
-    return NextResponse.json(
-      { error: 'Error interno del servidor' },
-      { status: 500 }
-    );
+    console.error("❌ DELETE /products/[id] error:", err);
+    return new Response("Error interno del servidor", { status: 500 });
   }
 }
