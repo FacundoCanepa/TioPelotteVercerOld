@@ -3,10 +3,9 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Record<string, string> }
+  context: { params: Promise<Record<string, string>> }
 ) {
-  const documentId = params.id;
-
+  const { id: documentId } = await context.params;
   try {
     const body = await req.json();
 
