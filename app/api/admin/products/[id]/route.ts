@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
+  // En Next.js 15, params ya no es una Promise para rutas simples como [id]
+  const { id } = params;
   const body = await req.json();
 
   const {
@@ -55,15 +56,12 @@ export async function PUT(
   }
 }
 
-
-
-
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
-  const body = await req.json();
+  // En Next.js 15, params ya no es una Promise para rutas simples como [id]
+  const { id } = params;
 
   try {
     const res = await fetch(
