@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// ✅ PUT — actualizar producto
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -7,7 +8,6 @@ export async function PUT(
   const { id } = await params;
   const body = await req.json();
 
-  // Desestructuramos y limpiamos el body para que coincida con el formato de Strapi
   const {
     id: _,
     documentId,
@@ -56,19 +56,18 @@ export async function PUT(
   }
 }
 
-
 // ✅ DELETE — eliminar producto
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await params;
 
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
@@ -84,7 +83,8 @@ export async function DELETE(
 
     return NextResponse.json(data, { status: res.status });
   } catch (err) {
-    console.error("❌ DELETE /products/[id] error:", err);
-    return new Response("Error interno del servidor", { status: 500 });
+    console.error('❌ DELETE /products/[id] error:', err);
+    return new Response('Error interno del servidor', { status: 500 });
   }
 }
+
