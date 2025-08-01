@@ -7,7 +7,6 @@ export async function PUT(
   const { id } = await params;
   const body = await req.json();
 
-  // Desestructuramos y limpiamos el body para que coincida con el formato de Strapi
   const {
     id: _,
     documentId,
@@ -57,12 +56,14 @@ export async function PUT(
 }
 
 
-// ✅ DELETE — eliminar producto
+
+
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await params;
+  const body = await req.json();
 
   try {
     const res = await fetch(
