@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, UserPlus, Mail, Lock } from "lucide-react";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/Buttones";
 import { useUserStore } from "@/store/user-store";
 
 export default function RegisterForm() {

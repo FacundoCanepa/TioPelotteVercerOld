@@ -2,7 +2,7 @@
 
 import AnimatedSection from "../../ui/AnimatedWrapper";
 import { useRouter } from "next/navigation";
-import Button from "../../ui/Button";
+import Button from "../../ui/Buttones";
 import Image from "next/image";
 
 const NuestraHistoria = () => {
