@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// ✅ NO tipamos "context" con tipo aparte, lo dejamos inline
+// ✅ PUT — actualizar producto
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
   const body = await req.json();
 
   const {
@@ -45,7 +45,6 @@ export async function PUT(
     );
 
     const data = await res.json();
-
     return NextResponse.json(data, { status: res.status });
   } catch (err) {
     console.error("❌ PUT /products/[id] error:", err);
@@ -53,11 +52,12 @@ export async function PUT(
   }
 }
 
+// ✅ DELETE — eliminar producto
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = context.params;
 
   try {
     const res = await fetch(
