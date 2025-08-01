@@ -6,7 +6,7 @@ interface Props {
   subtotal: number;
   envio: number;
   total: number;
-  metodoPago: "mercado pago" | "efectivo";
+   metodoPago: "mercado pago" | "efectivo" | "Elegís al momento de pagar";
 }
 
 export default function CheckoutResumen({ subtotal, envio, total, metodoPago }: Props) {
