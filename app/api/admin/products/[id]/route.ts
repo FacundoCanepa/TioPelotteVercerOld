@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-// Tipado estricto usando Next.js oficial (evita el error del build)
-type RouteContext = {
-  params: Record<string, string>;
-};
-
-export async function PUT(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+// ✅ NO tipamos "context" con tipo aparte, lo dejamos inline
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
   const body = await req.json();
 
   const {
@@ -54,8 +53,11 @@ export async function PUT(req: NextRequest, context: RouteContext) {
   }
 }
 
-export async function DELETE(req: NextRequest, context: RouteContext) {
-  const { id } = context.params;
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
     const res = await fetch(
