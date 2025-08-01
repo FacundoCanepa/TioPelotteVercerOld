@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 
+// ✅ PUT bien tipado
 export async function PUT(
   req: NextRequest,
   context: { params: { id: string } }
@@ -22,13 +23,11 @@ export async function PUT(
 
   const cleanBody = {
     ...rest,
-
     img: typeof img === "object" && img?.[0]?.id ? img[0].id : img,
     img_carousel: Array.isArray(img_carousel) ? img_carousel.map((i) => i.id) : [],
     category: typeof category === "object" ? category.id : category,
     recetas: Array.isArray(recetas) ? recetas.map((r) => r.id) : [],
   };
-
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${params.id}`,
@@ -50,19 +49,25 @@ export async function PUT(
   });
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+// ✅ DELETE bien tipado
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { id: string } }
+) {
+  const { id } = context.params;
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${params.id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
       },
     });
 
-
     if (res.status === 204) {
       return new Response(null, { status: 204 });
     }
+
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
 
