@@ -1,13 +1,13 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
-// ✅ PUT — actualizar producto
 export async function PUT(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = context.params;
+  const { id } = await params;
   const body = await req.json();
 
+  // Desestructuramos y limpiamos el body para que coincida con el formato de Strapi
   const {
     id: _,
     documentId,
@@ -23,11 +23,11 @@ export async function PUT(
 
   const cleanBody = {
     ...rest,
-    img: typeof img === "object" && img?.[0]?.id ? img[0].id : img,
+    img: typeof img === 'object' && img?.[0]?.id ? img[0].id : img,
     img_carousel: Array.isArray(img_carousel)
       ? img_carousel.map((i) => i.id)
       : [],
-    category: typeof category === "object" ? category.id : category,
+    category: typeof category === 'object' ? category.id : category,
     recetas: Array.isArray(recetas) ? recetas.map((r) => r.id) : [],
   };
 
@@ -35,22 +35,27 @@ export async function PUT(
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.STRAPI_PEDIDOS_TOKEN}`,
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
         body: JSON.stringify({ data: cleanBody }),
       }
     );
 
     const data = await res.json();
+
     return NextResponse.json(data, { status: res.status });
-  } catch (err) {
-    console.error("❌ PUT /products/[id] error:", err);
-    return new Response("Error interno del servidor", { status: 500 });
+  } catch (error) {
+    console.error('❌ Error actualizando producto:', error);
+    return NextResponse.json(
+      { error: 'Error al actualizar el producto' },
+      { status: 500 }
+    );
   }
 }
+
 
 // ✅ DELETE — eliminar producto
 export async function DELETE(
