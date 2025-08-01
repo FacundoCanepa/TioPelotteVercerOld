@@ -3,4 +3,5 @@ export type ItemType = {
   quantity: number;
   unit_price: number;
   productName?: string;
+  product_name?: string;
 };
