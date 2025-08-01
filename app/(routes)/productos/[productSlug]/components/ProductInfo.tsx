@@ -51,7 +51,7 @@ const ProductInfo = ({ product }: Props) => {
             <span>Tiempo estimado: {product.tiempoEstimado}</span>
           </div>
         )}
-        {product.ingredientes?.length > 0 && (
+        {product.ingredientes && product.ingredientes.length > 0 && (
           <div className="flex items-start gap-2">
             <Info className="w-4 h-4 mt-0.5" />
             <span className="text-pretty">

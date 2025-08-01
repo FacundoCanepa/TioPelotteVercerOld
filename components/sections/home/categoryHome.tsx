@@ -3,6 +3,7 @@
 import SkeletonCategory from "../../ui/SkeletonCategory";
 import { useGetCategory } from "@/components/hooks/useGetCategory";
 import { ResponseType } from "@/types/response";
+import type { Category } from "@/types/category";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -38,7 +39,7 @@ const CategoryHome = () => {
           <SkeletonCategory />
         ) : (
           result &&
-          result.map((category) => {
+          result.map((category: Category) => {
             const isExpandedMobile = expandedId === category.id;
 
             return (

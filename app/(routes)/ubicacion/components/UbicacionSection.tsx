@@ -18,7 +18,11 @@ const DeliveryMap = dynamic(() => import("./DeliveryMap"), { ssr: false });
 
 const floatAnimation = {
   animate: { y: [0, -10, 0] },
-  transition: { duration: 6, repeat: Infinity, ease: "easeInOut" },
+   transition: {
+    duration: 6,
+    repeat: Infinity,
+    ease: [0.42, 0, 0.58, 1],
+  },
 };
 
 const UbicacionSection = () => {

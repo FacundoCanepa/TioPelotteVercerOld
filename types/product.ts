@@ -14,7 +14,7 @@ export type ProductType = {
   img_carousel?: {
     id: number;
     url: string;
-    alternativeText?: string;
+        alternativeText?: string;
   }[];
 
   unidadMedida: string;
@@ -39,4 +39,5 @@ export type ProductType = {
   tiempoEstimado?: string;
 
   stock?: number;
+  stockUpdatedAt?: string;
 };

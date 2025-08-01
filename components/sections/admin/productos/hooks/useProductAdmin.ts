@@ -47,9 +47,12 @@ export function useProductAdmin() {
   const [filterActive, setFilterActive] = useState("all");
   const [filterUnidad, setFilterUnidad] = useState("all");
   const [filterLowStock, setFilterLowStock] = useState(false);
-  const [orderBy, setOrderBy] = useState({
+ const [orderBy, setOrderBy] = useState<{
+    field: keyof ProductType;
+    direction: "asc" | "desc";
+  }>({
     field: "productName",
-    direction: "asc" as "asc" | "desc",
+    direction: "asc",
   });
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);

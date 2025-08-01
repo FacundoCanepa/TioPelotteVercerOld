@@ -36,7 +36,9 @@ export default function ProductTable({ productos, onEdit, onDelete, orderBy, set
           {productos.map((p) => (
             <tr key={p.id} className="border-b last:border-0 hover:bg-[#FFF8EC] transition">
               <td className="p-3 capitalize font-medium flex items-center gap-2">
-                {p.stock <= 5 && <AlertTriangle className="h-4 w-4 text-red-600" />}
+                  {p.stock !== undefined && p.stock <= 5 && (
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                )}
                 {p.productName}
               </td>
               <td className="p-3 font-semibold">${p.price}</td>
