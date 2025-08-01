@@ -1,7 +1,5 @@
 import RecipeDetail from "./components/RecipeDetail";
 
-type Props = { params: { recetasSlug: string } };
-
 // ✅ Metadata genérica para todas las recetas
 export const metadata = {
   title: "Receta artesanal | TÍO PELOTTE",
@@ -12,7 +10,7 @@ export const metadata = {
     type: "article",
     images: [
       {
-        url: "https://tiopelotte.ar/opengraph-recetas.jpg", // reemplazá si tenés una imagen genérica
+        url: "https://tiopelotte.ar/opengraph-recetas.jpg",
         width: 1200,
         height: 630,
         alt: "Receta artesanal de TÍO PELOTTE",
@@ -21,6 +19,11 @@ export const metadata = {
   },
 };
 
-export default function Page({ params }: Props) {
+// ✅ Tipado inline en lugar de Props + función async
+export default async function Page({
+  params,
+}: {
+  params: { recetasSlug: string };
+}) {
   return <RecipeDetail slug={params.recetasSlug} />;
 }
