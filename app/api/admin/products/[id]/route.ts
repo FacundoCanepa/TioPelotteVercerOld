@@ -1,15 +1,16 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-// ✅ PUT: Actualizar producto en Strapi
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { id: productId } = context.params;
+// Tipado estricto usando Next.js oficial (evita el error del build)
+type RouteContext = {
+  params: Record<string, string>;
+};
+
+export async function PUT(req: NextRequest, context: RouteContext) {
+  const { id } = context.params;
   const body = await req.json();
 
   const {
-    id,
+    id: _,
     documentId,
     createdAt,
     updatedAt,
@@ -33,7 +34,7 @@ export async function PUT(
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${productId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
         method: "PUT",
         headers: {
@@ -46,26 +47,19 @@ export async function PUT(
 
     const data = await res.json();
 
-    return new Response(JSON.stringify(data), {
-      status: res.status,
-      headers: { "Content-Type": "application/json" },
-    });
-  } catch (error) {
-    console.error("❌ Error en PUT /products/[id]:", error);
+    return NextResponse.json(data, { status: res.status });
+  } catch (err) {
+    console.error("❌ PUT /products/[id] error:", err);
     return new Response("Error interno del servidor", { status: 500 });
   }
 }
 
-// ✅ DELETE: Borrar producto en Strapi
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
-  const { id: productId } = context.params;
+export async function DELETE(req: NextRequest, context: RouteContext) {
+  const { id } = context.params;
 
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${productId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -81,11 +75,9 @@ export async function DELETE(
     const text = await res.text();
     const data = text ? JSON.parse(text) : null;
 
-    return new Response(JSON.stringify(data), {
-      status: res.status,
-    });
-  } catch (error) {
-    console.error("❌ Error en DELETE /products/[id]:", error);
+    return NextResponse.json(data, { status: res.status });
+  } catch (err) {
+    console.error("❌ DELETE /products/[id] error:", err);
     return new Response("Error interno del servidor", { status: 500 });
   }
 }
