@@ -1,8 +1,10 @@
 "use client";
 
 interface Props {
-  metodoPago: "mercado pago" | "efectivo";
-  setMetodoPago: (val: "mercado pago" | "efectivo") => void;
+  metodoPago: "mercado pago" | "efectivo" | "Elegís al momento de pagar";
+  setMetodoPago: (
+    val: "mercado pago" | "efectivo" | "Elegís al momento de pagar"
+  ) => void;
 }
 
 export default function CheckoutPaymentMethod({ metodoPago, setMetodoPago }: Props) {
