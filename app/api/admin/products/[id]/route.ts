@@ -87,4 +87,3 @@ export async function DELETE(
     return new Response('Error interno del servidor', { status: 500 });
   }
 }
-
