@@ -1,7 +1,7 @@
 "use client";
 
 interface Props {
-  tipoEntrega: "domicilio" | "local";
+  tipoEntrega: "domicilio" | "local" | null;
   setTipoEntrega: (val: "domicilio" | "local") => void;
 }
 
