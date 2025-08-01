@@ -18,11 +18,12 @@ export const metadata = {
   },
 };
 
-// ⚠️ NO USAR type Props acá, tipamos inline y SIN async innecesario
-export default function Page({
+export default async function Page({
   params,
 }: {
-  params: { recetasSlug: string };
+  params: Promise<{ recetasSlug: string }>;
 }) {
-  return <RecipeDetail slug={params.recetasSlug} />;
+  const { recetasSlug } = await params;
+
+  return <RecipeDetail slug={recetasSlug} />;
 }
