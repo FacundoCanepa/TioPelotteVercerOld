@@ -5,7 +5,7 @@ import ZonaSelect from "../../perfil/components/ZonaSelect";
 import { Truck } from "lucide-react";
 
 interface Props {
-  tipoEntrega: "domicilio" | "local";
+  tipoEntrega: "domicilio" | "local" | null;
   zona: string;
   setZona: (val: string) => void;
   direccion: string;
