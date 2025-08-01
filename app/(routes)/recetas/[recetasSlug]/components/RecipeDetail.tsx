@@ -40,14 +40,15 @@ export default function RecipeDetail({ slug }: Props) {
           porciones: attrs.porciones,
           preparacion: attrs.preparacion,
           img: attrs.img || null,
-          products:
-            attrs.products?.map((prod: any) => ({
-              id: prod.id,
-              productName: prod.productName,
-              slug: prod.slug,
-              price: prod.price,
-              img: prod.img || [],
-            })) || [],
+            products:
+              attrs.products?.map((prod: any) => ({
+                id: prod.id,
+                productName: prod.productName,
+                slug: prod.slug,
+                price: Number(prod.price),
+                img: prod.img || [],
+              })) || [],
+
         });
       } catch (err) {
         setError("Error al obtener los datos de la receta.");

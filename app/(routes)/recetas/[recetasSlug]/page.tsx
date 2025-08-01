@@ -1,6 +1,5 @@
 import RecipeDetail from "./components/RecipeDetail";
 
-// ✅ Metadata genérica para todas las recetas
 export const metadata = {
   title: "Receta artesanal | TÍO PELOTTE",
   description: "Una receta deliciosa hecha con ingredientes frescos y amor artesanal.",
@@ -19,8 +18,8 @@ export const metadata = {
   },
 };
 
-// ✅ Tipado inline en lugar de Props + función async
-export default async function Page({
+// ⚠️ NO USAR type Props acá, tipamos inline y SIN async innecesario
+export default function Page({
   params,
 }: {
   params: { recetasSlug: string };
