@@ -53,7 +53,7 @@ function PedidoInfoCard({ pedido }: { pedido: PedidoType }) {
 function ProductoItemCard({ item }: { item: ItemType }) {
   const productName = item.product_name || item.productName;
   const { product, loading, error } = useGetProductByName(productName);
-
+  if (!productName) return null;
   if (loading) return <SkeletonConsultarPedido />;
   if (error) {
     return (
