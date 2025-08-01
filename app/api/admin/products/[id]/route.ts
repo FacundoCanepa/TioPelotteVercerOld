@@ -33,12 +33,12 @@ export async function PUT(
 
   try {
     const res = await fetch(
-      ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id},
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: Bearer ${process.env.STRAPI_API_TOKEN},
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
         body: JSON.stringify({ data: cleanBody }),
       }
@@ -66,11 +66,11 @@ export async function DELETE(
 
   try {
     const res = await fetch(
-      ${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id},
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`,
       {
         method: "DELETE",
         headers: {
-          Authorization: Bearer ${process.env.STRAPI_API_TOKEN},
+          Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
         },
       }
     );
