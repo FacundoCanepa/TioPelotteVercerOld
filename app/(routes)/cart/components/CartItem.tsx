@@ -3,9 +3,10 @@
 import Image from "next/image";
 import { Trash2 } from "lucide-react";
 import { useCartStore } from "@/store/cart-store";
+import type { CartItem as CartItemType } from "@/store/cart-store";
 
 interface Props {
-  item: CartItem;
+ item: CartItemType;
 }
 
 const formatQuantity = (qty: number, unidad: string) => {

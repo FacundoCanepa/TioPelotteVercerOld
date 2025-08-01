@@ -1,14 +1,9 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import type { ProductType } from "@/types/product";
 
 export type CartItem = {
-  product: {
-    id: number;
-    productName: string;
-    price: number;
-    img: any;
-    unidadMedida: string;
-  };
+product: ProductType;
   quantity: number;
 };
 
