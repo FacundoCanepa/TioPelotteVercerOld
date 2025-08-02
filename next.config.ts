@@ -4,10 +4,9 @@ const nextConfig = {
   images: {
     domains: ["loved-ducks-790a0f88b6.media.strapiapp.com"],
   },
-  devIndicators: false,
   eslint: {
-    ignoreDuringBuilds: true, 
-  },
+    ignoreDuringBuilds: true,
+  }
 };
 
-module.exports = nextConfig;
+export default nextConfig;
