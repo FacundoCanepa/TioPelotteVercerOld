@@ -8,8 +8,12 @@ interface Props {
   form: any;
   setForm: Dispatch<SetStateAction<any>>;
   ingredientes: any[];
-  onMainUpload: (files: FileList | File[]) => Promise<void>;
-  onCarouselUpload: (files: FileList | File[]) => Promise<void>;
+ onMainUpload: (
+    files: FileList | File[]
+  ) => Promise<{ ids: { id: number }[]; urls: string[] }>;
+  onCarouselUpload: (
+    files: FileList | File[]
+  ) => Promise<{ ids: { id: number }[]; urls: string[] }>;
   uploading: boolean;
   onSave: () => void;
 }

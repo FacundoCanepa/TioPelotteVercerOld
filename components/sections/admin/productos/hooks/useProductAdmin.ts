@@ -93,11 +93,12 @@ const { uploadImages, loading: uploading } = useImageUpload();
     }));
   }, [form.productName]);
 
- const uploadMainImage = async (files: FileList | File[]) => {
+const uploadMainImage = async (files: FileList | File[]) => {
     const { ids, urls } = await uploadImages(files);
     if (ids[0]) {
       setForm((prev: any) => ({ ...prev, img: ids[0], imgPreview: urls[0] }));
     }
+    return { ids, urls };
   };
 
   const uploadCarouselImages = async (files: FileList | File[]) => {
@@ -109,6 +110,7 @@ const { uploadImages, loading: uploading } = useImageUpload();
         img_carousel_preview: [...prev.img_carousel_preview, ...urls],
       }));
     }
+    return { ids, urls };
   };
 
   const cleanPayload = (payload: any) => {
