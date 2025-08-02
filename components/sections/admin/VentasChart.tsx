@@ -7,6 +7,10 @@ import {
   BarElement,
   Tooltip,
   Legend,
+    type ChartOptions,
+  type ChartData,
+  type Tick,
+  type Scale,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
@@ -18,7 +22,7 @@ interface Props {
 }
 
 export default function VentasChart({ labels, values }: Props) {
-  const data = {
+  const data: ChartData<'bar'> = {
     labels,
     datasets: [
       {
@@ -32,7 +36,7 @@ export default function VentasChart({ labels, values }: Props) {
     ],
   };
 
-  const options = {
+ const options: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
     layout: {
@@ -60,7 +64,15 @@ export default function VentasChart({ labels, values }: Props) {
         ticks: {
           color: "#5A3E1B",
           font: { family: "Garamond", size: 12 },
-          callback: (value: number) => `$${value.toLocaleString("es-AR")}`,
+          callback(
+            this: Scale,
+            value: string | number,
+            _index: number,
+            _ticks: Tick[]
+          ) {
+            const numericValue = typeof value === "string" ? parseFloat(value) : value;
+            return `$${numericValue.toLocaleString("es-AR")}`;
+          },
         },
         grid: {
           color: "#E0E0E0",
