@@ -149,11 +149,22 @@ const editIngrediente = (i: IngredientType) => {
       .filter((i) => (filterUnidad === "all" ? true : i.unidadMedida === filterUnidad))
       .filter((i) => (filterLowStock ? i.stock <= 5 : true))
       .sort((a, b) => {
-        const aValue = a[orderBy.field as keyof IngredientType];
-        const bValue = b[orderBy.field as keyof IngredientType];
-        if (aValue < bValue) return orderBy.direction === "asc" ? -1 : 1;
-        if (aValue > bValue) return orderBy.direction === "asc" ? 1 : -1;
-        return 0;
+         const field = orderBy.field as keyof IngredientType;
+        const dir = orderBy.direction === "asc" ? 1 : -1;
+        const aValue = a[field];
+        const bValue = b[field];
+
+        if (aValue == null && bValue == null) return 0;
+        if (aValue == null) return 1 * dir;
+        if (bValue == null) return -1 * dir;
+
+        if (typeof aValue === "number" && typeof bValue === "number") {
+          if (aValue > bValue) return dir;
+          if (aValue < bValue) return -dir;
+          return 0;
+        }
+
+        return String(aValue).localeCompare(String(bValue)) * dir;
       }),
 
     loading,
