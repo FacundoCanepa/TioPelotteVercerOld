@@ -40,12 +40,12 @@ const CategoryHome = () => {
         ) : (
           result &&
           result.map((category: Category) => {
-            const isExpandedMobile = expandedId === category.id;
+            const isExpandedMobile = expandedId === String(category.id);
 
             return (
               <div
                 key={category.id}
-                onClick={() => handleClick(category.id, category.slug)}
+                onClick={() => handleClick(String(category.id), category.slug)}
                 className={`
                   group relative flex-shrink-0 cursor-pointer
                   overflow-hidden 
