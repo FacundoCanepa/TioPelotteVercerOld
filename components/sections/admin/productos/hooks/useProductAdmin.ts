@@ -116,9 +116,9 @@ const uploadMainImage = async (files: FileList | File[]) => {
   const cleanPayload = (payload: any) => {
     return {
       ...payload,
-      img: typeof payload.img === "object" && payload.img?.id
-        ? payload.img.id
-        : payload.img,
+img: Array.isArray(payload.img)
+        ? payload.img[0]?.id ?? null
+        : (payload.img as any)?.id ?? payload.img ?? null,
       img_carousel: Array.isArray(payload.img_carousel)
         ? payload.img_carousel.map((i: any) => i.id || i)
         : [],
@@ -174,14 +174,16 @@ const uploadMainImage = async (files: FileList | File[]) => {
       ingredientes: Array.isArray(p.ingredientes)
         ? p.ingredientes.map((i: any) => i.id)
         : [],
-      img:
-        typeof p.img === "object" && p.img?.id
-          ? p.img.id
-          : null,
-      imgPreview:
-        typeof p.img === "object" && p.img?.url
-          ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${p.img.url}`
-          : "",
+        img: Array.isArray(p.img)
+        ? p.img[0]?.id ?? null
+        : (p.img as any)?.id ?? null,
+      imgPreview: Array.isArray(p.img)
+        ? p.img[0]?.url
+          ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${p.img[0].url}`
+          : ""
+        : p.img?.url
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${p.img.url}`
+        : "",
       img_carousel: Array.isArray(p.img_carousel)
         ? p.img_carousel.map((i: any) => ({ id: i.id }))
         : [],
