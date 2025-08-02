@@ -3,21 +3,10 @@
 import { useState } from "react";
 import { Copy, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-
-interface Pedido {
-  id: number;
-  documentId: string;
-  estado: string;
-  total: number;
-  tipoPago: string;
-  tipoEntrega: string;
-  createdAt: string;
-  telefono: string;
-  nombre: string;
-}
+import type { PedidoType } from "@/types/pedido";
 
 interface Props {
-  pedidos: Pedido[];
+  pedidos: PedidoType[];
 }
 
 export default function PedidosTable({ pedidos }: Props) {

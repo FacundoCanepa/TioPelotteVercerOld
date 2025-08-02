@@ -2,6 +2,7 @@
 
 import BestSellingProducts from "./BestSellingProducts";
 import { useEffect, useState } from "react";
+import type { PedidoType } from "@/types/pedido";
 import {
   Loader2,
   DollarSign,
@@ -18,25 +19,8 @@ import ResumenCard from "./ResumenCard";
 import VentasChart from "./VentasChart";
 import PedidosTable from "./PedidosTable";
 
-interface Pedido {
-  id: number;
-  documentId: string;
-  estado: string;
-  total: number;
-  tipoPago: string;
-  tipoEntrega: string;
-  createdAt: string;
-  telefono: string;
-  nombre: string;
-  items: {
-    title: string;
-    quantity: number;
-    product_name: string;
-  }[];
-}
-
 export default function AdminDashboard() {
-  const [pedidos, setPedidos] = useState<Pedido[]>([]);
+  const [pedidos, setPedidos] = useState<PedidoType[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [filtroEstado, setFiltroEstado] = useState<string>("Todos");

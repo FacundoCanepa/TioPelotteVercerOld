@@ -1,20 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-
-interface Item {
-  product_name: string;
-  quantity: number;
-  unit_price: number;
-}
-
-interface Pedido {
-  id: number;
-  items: Item[];
-}
+import type { PedidoType } from "@/types/pedido";
 
 interface Props {
-  pedidos: Pedido[];
+  pedidos: PedidoType[];
 }
 
 export default function BestSellingProducts({ pedidos }: Props) {
@@ -30,7 +20,7 @@ export default function BestSellingProducts({ pedidos }: Props) {
         const nombre = item.product_name;
         if (!conteo[nombre]) conteo[nombre] = { cantidad: 0, monto: 0 };
         conteo[nombre].cantidad += item.quantity;
-        conteo[nombre].monto += item.quantity * item.unit_price;
+        conteo[nombre].monto += item.quantity * (item.unit_price ?? 0);
       });
     });
 

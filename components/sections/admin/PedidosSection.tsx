@@ -3,21 +3,10 @@ import { useEffect, useState } from "react";
 import SearchInput from "@/components/ui/productos-filters/SearchInput";
 import { Loader2 } from "lucide-react";
 import PedidosTable from "./PedidosTable";
-
-interface Pedido {
-  id: number;
-  documentId: string;
-  estado: string;
-  total: number;
-  tipoPago: string;
-  tipoEntrega: string;
-  createdAt: string;
-  telefono: string;
-  nombre: string;
-}
+import type { PedidoType } from "@/types/pedido";
 
 export default function PedidosSection() {
-  const [pedidos, setPedidos] = useState<Pedido[]>([]);
+  const [pedidos, setPedidos] = useState<PedidoType[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [estado, setEstado] = useState("Todos");
