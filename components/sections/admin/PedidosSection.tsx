@@ -29,8 +29,8 @@ export default function PedidosSection() {
 
   const filtered = pedidos.filter((p) => {
     const matchSearch =
-      p.nombre.toLowerCase().includes(search.toLowerCase()) ||
-      p.documentId.toLowerCase().includes(search.toLowerCase());
+    (p.nombre?.toLowerCase() ?? "").includes(search.toLowerCase()) ||
+      (p.documentId?.toLowerCase() ?? "").includes(search.toLowerCase());
     const matchEstado = estado === "Todos" || p.estado === estado;
     const matchEntrega = entrega === "Todos" || p.tipoEntrega === entrega;
     return matchSearch && matchEstado && matchEntrega;

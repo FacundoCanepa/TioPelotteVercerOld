@@ -57,7 +57,9 @@ export default function PedidosTable({ pedidos }: Props) {
           {pedidos.map((p) => {
             const fecha = new Date(p.createdAt).toLocaleDateString("es-AR");
             const total = `$${p.total.toLocaleString("es-AR")}`;
-            const linkWhatsApp = `https://wa.me/54${p.telefono}`;
+                  const linkWhatsApp = p.telefono
+                  ? `https://wa.me/54${p.telefono}`
+                  : "#";
 
             return (
               <tr key={p.id} className="border-b last:border-none hover:bg-[#FFF8EC]">
@@ -70,7 +72,11 @@ export default function PedidosTable({ pedidos }: Props) {
                   <select
                     className="border rounded-md px-2 py-1 bg-white"
                     value={p.estado}
-                    onChange={(e) => actualizarEstado(p.documentId, e.target.value)}
+                       onChange={(e) => {
+                      if (p.documentId) {
+                        actualizarEstado(p.documentId, e.target.value);
+                      }
+                    }}
                   >
                     <option value="Pendiente">Pendiente</option>
                     <option value="En camino">En camino</option>
@@ -88,10 +94,10 @@ export default function PedidosTable({ pedidos }: Props) {
                     rel="noopener noreferrer"
                     className="text-green-600 underline"
                   >
-                    {p.telefono}
+                    {p.telefono ?? ""}
                   </a>
                   <button
-                    onClick={() => copiar(p.telefono)}
+                    onClick={() => p.telefono && copiar(p.telefono)}
                     className="text-[#8B4513] hover:text-black"
                   >
                     <Copy className="h-4 w-4" />
