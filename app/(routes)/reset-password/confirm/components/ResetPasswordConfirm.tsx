@@ -1,18 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Lock } from "lucide-react";
 import { toast } from "sonner";
 
-export default function ResetPasswordConfirm() {
+interface ResetPasswordConfirmProps {
+  code: string | null;
+}
+
+export default function ResetPasswordConfirm({
+  code,
+}: ResetPasswordConfirmProps) {
+
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams();
   const router = useRouter();
 
-  const code = searchParams.get("code");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +54,8 @@ export default function ResetPasswordConfirm() {
 
       toast.success("✅ Contraseña actualizada. Iniciá sesión.");
       router.push("/login");
-    } catch (error) {
+ } catch (err) {
+      console.error(err);
       toast.error("Error al conectar con el servidor.");
     } finally {
       setLoading(false);
