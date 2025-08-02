@@ -76,7 +76,6 @@ export default function VentasChart({ labels, values }: Props) {
         },
         grid: {
           color: "#E0E0E0",
-          borderDash: [4, 4],
         },
       },
     },
