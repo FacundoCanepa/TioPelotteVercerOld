@@ -7,9 +7,12 @@ import ProductosFilters from "../filters/ProductosFilters";
 import { SlidersHorizontal, ArrowUpDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useSearchParams } from "next/navigation";
 
-const ProductosSection = () => {
+interface ProductosSectionProps {
+  categoryFromUrl?: string;
+}
+
+const ProductosSection = ({ categoryFromUrl = "" }: ProductosSectionProps) => {
   const {
     products,
     totalFiltered,
@@ -25,14 +28,12 @@ const ProductosSection = () => {
   const [minPrice, maxPrice] = priceRange;
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  const searchParams = useSearchParams();
 
   useEffect(() => {
-    const categoryFromUrl = searchParams.get("category");
     if (categoryFromUrl) {
       setFilters((prev) => ({ ...prev, category: categoryFromUrl }));
     }
-  }, [searchParams, setFilters]);
+  }, [categoryFromUrl, setFilters]);
 
   const toggleSortOrder = () => {
     setFilters((f) => ({

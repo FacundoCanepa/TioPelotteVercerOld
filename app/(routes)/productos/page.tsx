@@ -1,4 +1,5 @@
-import ProductosSection from "./components/ProductosSection";
+import { Suspense } from "react";
+import ProductosClientWrapper from "./ProductosClientWrapper";
 
 export const metadata = {
   title: "Productos artesanales – TÍO PELOTTE",
@@ -14,5 +15,9 @@ export const metadata = {
 };
 
 export default function ProductosPage() {
-  return <ProductosSection />;
+  return (
+    <Suspense fallback={null}>
+      <ProductosClientWrapper />
+    </Suspense>
+  );
 }
