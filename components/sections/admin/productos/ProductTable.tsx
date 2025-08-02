@@ -7,8 +7,8 @@ interface Props {
   productos: ProductType[];
   onEdit: (p: ProductType) => void;
   onDelete: (documentId: string) => void;
-  orderBy: { field: string; direction: "asc" | "desc" };
-  setOrderBy: (val: { field: string; direction: "asc" | "desc" }) => void;
+  orderBy: { field: keyof ProductType; direction: "asc" | "desc" };
+  setOrderBy: (val: { field: keyof ProductType; direction: "asc" | "desc" }) => void;
 }
 
 export default function ProductTable({ productos, onEdit, onDelete, orderBy, setOrderBy }: Props) {
