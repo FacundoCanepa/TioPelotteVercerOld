@@ -181,8 +181,8 @@ img: Array.isArray(payload.img)
         ? p.img[0]?.url
           ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${p.img[0].url}`
           : ""
-        : p.img?.url
-        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${p.img.url}`
+        : (p.img as { url?: string } | null)?.url
+        ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${(p.img as { url?: string }).url}`
         : "",
       img_carousel: Array.isArray(p.img_carousel)
         ? p.img_carousel.map((i: any) => ({ id: i.id }))
