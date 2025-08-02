@@ -252,7 +252,11 @@ img: Array.isArray(payload.img)
         ? dir
         : -dir;
     }
-    return a[orderBy.field].localeCompare(b[orderBy.field]) * dir;
+    return (
+      String(a[orderBy.field] ?? "").localeCompare(
+        String(b[orderBy.field] ?? "")
+      ) * dir
+    );
   });
 
   return {
