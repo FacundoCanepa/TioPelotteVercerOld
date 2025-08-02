@@ -1,17 +1,10 @@
-"use client";
-
-import { useConfirmPedido } from "./hook/useConfirmPedido";
-import SuccessLayout from "./components/SuccessLayout";
-import SuccessMessage from "./components/SuccessMessage";
-import SuccessActions from "./components/SuccessActions";
+import { Suspense } from "react";
+import CheckoutSuccessClient from "./components/CheckoutSuccessClient";
 
 export default function CheckoutSuccessPage() {
-  const { estado } = useConfirmPedido();
-
   return (
-    <SuccessLayout>
-      <SuccessMessage estado={estado} />
-      <SuccessActions />
-    </SuccessLayout>
+    <Suspense fallback={<div>Cargando...</div>}>
+      <CheckoutSuccessClient />
+    </Suspense>
   );
 }
